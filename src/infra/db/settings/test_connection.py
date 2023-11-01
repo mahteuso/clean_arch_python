@@ -23,7 +23,7 @@ def test_conncetion():
     conn.commit()
     query_get = f'''
                 SELECT * FROM users
-                '''
+                 '''
     result = conn.execute(text(query_get))
     user = result.fetchall()[0]
     print(user)
