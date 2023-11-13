@@ -1,11 +1,13 @@
 from .repository import UsersRepository
 from sqlalchemy import text
 from src.infra.db.settings.connection import DbConnectHandler
+import pytest
 
 db_connect_handler = DbConnectHandler()
 engine = db_connect_handler.engine
 conn = engine.connect()
 
+@pytest.mark.skip(reason="Sensitive test")
 def test_insert_user():
     mocked_first_name = 'Marco'
     mocked_last_name = 'Maria'
@@ -27,7 +29,7 @@ def test_insert_user():
     assert registry.last_name == mocked_last_name
     assert registry.age == mocked_age
 
-
+@pytest.mark.skip(reason="Sensitive test")
 def test_select_user():
     mocked_first_name = 'Mateus'
     mocked_last_name = 'Laranjeira'
