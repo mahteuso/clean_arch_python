@@ -1,5 +1,6 @@
-from sqlalchemy import update
+from sqlalchemy import update, delete
 from src.infra.db.settings.connection import DbConnectHandler as DB
+from src.infra.db.entities.users import Users
 
 
 class UsersRepository:
@@ -34,27 +35,4 @@ class UsersRepository:
                 database.session.rollback()
                 return exception
 
-    @classmethod
-    def update_user(cls, first_name: str, new_first_name: str) -> any:
-        with DB() as database:
-            try:
-                users = (
-                    update(Users)
-                    .where(Users.c.first_name == {first_name})
-                    .values(first_name = {new_first_name})
-                    )
-                return users
-            except Exception as exception:
-                database.session.rollback()
-                return exception
-
-    @classmethod
-    def delete_user(cls, id: int) -> None:
-        with DB() as database:
-            try:
-                _find = database.session.get(User, id)
-                database.session.delete(_find)
-                database.session.commit()
-            except Exception as exception:
-                database.session.rollback()
-                raise exception
+ 
