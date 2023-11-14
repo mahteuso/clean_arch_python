@@ -1,6 +1,8 @@
 from sqlalchemy import update, delete
 from src.infra.db.settings.connection import DbConnectHandler as DB
 from src.infra.db.entities.users import Users
+from src.domain.models.users import Users as UsersModel
+from typing import List
 
 
 class UsersRepository:
@@ -21,7 +23,7 @@ class UsersRepository:
                 raise exception
 
     @classmethod
-    def select_user(cls, first_name: str) -> any:
+    def select_user(cls, first_name: str) -> List[UsersModel]:
         with DB() as database:
             try:
                 users = (
