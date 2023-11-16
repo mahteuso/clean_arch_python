@@ -6,18 +6,57 @@ def test_find():
     user_finder = UserFinder(repo)
 
     mocked_first_name = 'Rogério'
-    mocked_last_name = 'Laranjeira'
-    mocked_age = 42
 
     result = user_finder.find(mocked_first_name)
-    print(result)
-    print()
-    print(len(result["attributes"]))
-    print()
 
-
+    assert repo.select_user_attributes["first_name"] == mocked_first_name 
     assert result["type"] == "Users"
     assert result["count"] == len(result["attributes"])
     assert result["attributes"] != []
 
+    print()
+    print(result)
+     
 
+
+def test_find_error_in_invalid_name():
+    repo = UsersRepositorySpy()
+    user_finder = UserFinder(repo)
+
+    mocked_first_name = 'Rogério123'
+
+    try:
+        user_finder.find(mocked_first_name)
+        assert False
+    except Exception as exception:
+        assert str(exception) == 'Nome inválido para busca'
+
+def test_find_error_in_too_long_name():
+    repo = UsersRepositorySpy()
+    user_finder = UserFinder(repo)
+
+    mocked_first_name = 'RogérioMariaMateusLaranjeira'
+
+    try:
+        user_finder.find(mocked_first_name)
+        assert False
+    except Exception as exception:
+        assert str(exception) == 'Nome muito grande para busca'
+
+def test_find_error_user_not_found():
+    class UsersRepositoryError(UsersRepositorySpy):
+        def select_user(self, first_name: str):
+            return []
+
+    repo = UsersRepositoryError()
+    user_finder = UserFinder(repo)
+
+    mocked_first_name = 'Mateus'
+
+    try:
+        user_finder.find(mocked_first_name)
+        assert False
+    except Exception as exception:
+        assert str(exception) == 'Usuário não encontrado'
+
+    
