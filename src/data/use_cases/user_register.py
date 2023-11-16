@@ -10,7 +10,7 @@ class UserRegister(UserRegisterInterface):
     def register(self, first_name: str, last_name: str, age: int) -> Dict:
         self.__validate_name(first_name)
         self.__validate_name(last_name)
-        self.__registry_user_informations(first_name. last_name, age)
+        self.__registry_user_informations(first_name, last_name, age)
         response = self.__format_response(first_name, last_name, age)
         return response
         
