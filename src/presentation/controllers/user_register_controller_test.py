@@ -16,6 +16,6 @@ def test_handle():
 
     response = user_register_controller.handle(http_request_mock)
 
-    # assert response.body["data"]["attributes"]["first_name"] == http_request_mock.body["first_name"]
-    # assert response.body["data"]["attributes"]["last_name"] == http_request_mock.body["last_name"]
-    # assert response.body["data"]["attributes"]["age"] == http_request_mock.body["age"]
+    assert response.body["data"]["attributes"]["first_name"] == http_request_mock.body["first_name"]
+    assert response.body["data"]["attributes"]["last_name"] == http_request_mock.body["last_name"]
+    assert response.body["data"]["attributes"]["age"] == http_request_mock.body["age"]
