@@ -5,7 +5,7 @@ class UserRegisterSpy:
     def __init__(self) -> None:
         self.user_attributes = {}
 
-    def register(cls, first_name: str, last_name: str, age: int ) -> Dict:
+    def register(self, first_name: str, last_name: str, age: int ) -> Dict:
         self.user_attributes["first_name"] = first_name
         self.user_attributes["last_name"] = last_name
         self.user_attributes["age"] = age
